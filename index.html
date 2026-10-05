@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MARUBATSU LINE</title>
+<style>
+:root{--bg:#eef1f3;--panel:rgba(255,255,255,.92);--ink:#18232d;--muted:#65717b;--accent:#1e4664;--line:#d8dee3;--shadow:0 18px 50px rgba(17,29,38,.15)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif;color:var(--ink);background:#dfe5e8}button,input,select{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh;position:relative;overflow:hidden;background:var(--bg)}
+.bg-art{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(#b9d4e7 0 44%,#91a48d 44% 100%)}.bg-art:before,.bg-art:after{content:"";position:absolute}.bg-art:before{inset:0;background:linear-gradient(180deg,rgba(255,255,255,.25),transparent 38%,rgba(0,0,0,.14));pointer-events:none}.bg-art:after{left:-5%;right:-5%;bottom:17%;height:30%;background:linear-gradient(150deg,transparent 0 10%,#53645b 10% 28%,transparent 28%),linear-gradient(30deg,transparent 0 16%,#718070 16% 35%,transparent 35%);opacity:.8}
+.bg-mountain{background:linear-gradient(#b9d7eb 0 48%,#839b7c 48% 100%)}.bg-mountain:after{background:linear-gradient(145deg,transparent 0 18%,#53665a 18% 42%,transparent 42%),linear-gradient(35deg,transparent 0 32%,#71826d 32% 52%,transparent 52%)}
+.bg-forest{background:linear-gradient(#c4d9d8,#789275)}.bg-forest:after{height:55%;bottom:10%;background:repeating-linear-gradient(78deg,transparent 0 45px,#29483c 46px 64px,transparent 65px 100px),linear-gradient(#55755b,#334e40);opacity:.85}
+.bg-sea{background:linear-gradient(#c4dce9 0 45%,#4e91a7 45% 70%,#d5c7a5 70%)}.bg-sea:after{bottom:29%;height:2px;background:#fff;box-shadow:0 28px 0 rgba(255,255,255,.55),0 56px 0 rgba(255,255,255,.35)}
+.bg-snow{background:linear-gradient(#a9c9e1 0 45%,#e9f0f1 45%)}.bg-snow:after{bottom:34%;height:28%;background:linear-gradient(150deg,transparent 0 22%,#71838a 22% 36%,transparent 36%),linear-gradient(30deg,transparent 0 38%,#81929a 38% 52%,transparent 52%)}
+.bg-city{background:linear-gradient(#9fb7c9 0 42%,#6e7478 42% 100%)}.bg-city:after{bottom:13%;height:45%;background:repeating-linear-gradient(90deg,#3d474d 0 70px,#68737a 70px 78px,#4a555c 78px 140px);box-shadow:0 -30px 0 rgba(255,255,255,.05)}
+.bg-sakura{background:linear-gradient(#e6d9dc 0 48%,#879875 48%)}.bg-sakura:after{height:75%;top:18%;background:radial-gradient(circle at 20% 25%,#d98b9a 0 6px,transparent 7px),radial-gradient(circle at 35% 18%,#e9a5b0 0 7px,transparent 8px),radial-gradient(circle at 60% 27%,#d98b9a 0 6px,transparent 7px),radial-gradient(circle at 78% 17%,#efadb7 0 8px,transparent 9px);opacity:.9}
+.bg-night{background:linear-gradient(#17243a 0 60%,#24333b 60%)}.bg-night:after{inset:12% 5% 45%;background:radial-gradient(circle,#fff 0 1px,transparent 2px) 0 0/53px 41px,radial-gradient(circle,#d9e7ff 0 1px,transparent 2px) 20px 17px/71px 63px;opacity:.8}
+.bg-station{background:linear-gradient(#b9cedc 0 44%,#59636a 44% 100%)}.bg-station:after{left:5%;right:5%;bottom:17%;height:42%;border:14px solid #53606a;border-bottom-width:28px;background:repeating-linear-gradient(90deg,#a9c5d6 0 58px,#52636d 59px 72px);box-shadow:0 25px 0 #2f3a40}
+.bg-harbor{background:linear-gradient(#a9c8d9 0 45%,#547d8b 45% 72%,#a88d70 72%)}.bg-harbor:after{bottom:23%;height:4px;background:#3f4b50;box-shadow:0 32px 0 #3f4b50,0 64px 0 #3f4b50}
+.bg-sunset{background:linear-gradient(#c87d67 0,#e5b179 40%,#7b756c 68%,#384348 100%)}.bg-sunset:after{bottom:30%;height:18%;background:linear-gradient(160deg,transparent 0 30%,#444d4c 30% 45%,transparent 45%),linear-gradient(20deg,transparent 0 55%,#303b3c 55% 72%,transparent 72%)}
+.bg-rain{background:linear-gradient(#6e7f89,#46535b)}.bg-rain:after{inset:0;background:repeating-linear-gradient(112deg,transparent 0 18px,rgba(210,230,240,.22) 19px 20px,transparent 21px 38px);opacity:.7}
+.bg-desert{background:linear-gradient(#e2c58d 0 50%,#b48757 50% 100%)}.bg-desert:after{bottom:20%;height:20%;background:linear-gradient(165deg,transparent 0 30%,#75553d 30% 48%,transparent 48%),linear-gradient(15deg,transparent 0 48%,#8b6344 48% 63%,transparent 63%)}
+.bg-lake{background:linear-gradient(#b9d8e8 0 42%,#729eac 42% 68%,#8d9d7e 68%)}.bg-lake:after{bottom:29%;height:2px;background:rgba(255,255,255,.8);box-shadow:0 20px 0 rgba(255,255,255,.5),0 42px 0 rgba(255,255,255,.3)}
+.bg-autumn{background:linear-gradient(#b6c8d1 0 44%,#a36e45 44% 100%)}.bg-autumn:after{height:65%;top:15%;background:radial-gradient(circle at 18% 22%,#c96d38 0 9px,transparent 10px),radial-gradient(circle at 36% 13%,#b95534 0 8px,transparent 9px),radial-gradient(circle at 62% 22%,#d48b3f 0 9px,transparent 10px),radial-gradient(circle at 80% 14%,#b75e35 0 8px,transparent 9px)}
+.bg-rail{background:linear-gradient(#b7cedd 0 46%,#738071 46% 100%)}.bg-rail:after{left:0;right:0;bottom:15%;height:13%;background:linear-gradient(#6b6f70 0 30%,#303536 31% 45%,#8b8b83 46% 52%,#303536 53% 67%,#6b6f70 68%);box-shadow:0 -42px 0 rgba(55,67,71,.25)}
+.bg-coast{background:linear-gradient(#b7d7e8 0 44%,#4f91a3 44% 66%,#819a6d 66%)}.bg-coast:after{bottom:30%;height:12%;background:linear-gradient(170deg,transparent 0 38%,#5d6f62 38% 55%,transparent 55%)}
+.screen{position:relative;z-index:1;min-height:100vh;padding:26px clamp(14px,3vw,42px) 60px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1180px;margin:auto}.brand{font-weight:900;letter-spacing:.12em;font-size:clamp(20px,3vw,34px);text-shadow:0 2px 10px rgba(255,255,255,.8)}.nav-actions{display:flex;gap:8px}.iconbtn{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.9);color:var(--ink);box-shadow:0 7px 22px rgba(0,0,0,.13);font-size:21px}.page{max-width:1180px;margin:28px auto 0}.panel{background:var(--panel);border:1px solid rgba(255,255,255,.75);border-radius:28px;padding:clamp(18px,3vw,34px);box-shadow:var(--shadow);backdrop-filter:blur(12px)}h1,h2,h3{margin:0 0 12px}p{color:var(--muted);line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.btn{min-height:54px;border-radius:16px;padding:12px 18px;background:#fff;border:1px solid var(--line);color:var(--ink);font-weight:800;box-shadow:0 5px 16px rgba(0,0,0,.07)}.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}.btn.danger{background:#7a3030;color:#fff}.btn.small{min-height:42px;padding:8px 14px}.field{width:100%;padding:14px 16px;border-radius:14px;border:1px solid #cfd7dc;background:#fff}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}.label{font-size:13px;font-weight:800;color:#56636d;display:block;margin:0 0 7px}.home-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.stat{padding:18px;border-radius:20px;background:rgba(245,248,249,.92);border:1px solid #dce2e5}.list{display:grid;gap:10px}.item{padding:15px 16px;border-radius:16px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.muted{color:var(--muted)}.tag{font-size:12px;padding:5px 9px;border-radius:999px;background:#e9eff3;color:#4a5d6b}.boardwrap{display:flex;justify-content:center}.board{width:min(88vw,720px);aspect-ratio:1;display:grid;gap:5px;padding:5px;border-radius:22px;background:rgba(26,37,43,.82);box-shadow:0 20px 60px rgba(0,0,0,.24)}.cell{min-width:0;min-height:0;border-radius:10px;background:rgba(250,250,247,.94);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.cell.win{outline:4px solid #f2c94c;z-index:2}.piece{width:78%;height:78%;display:flex;align-items:center;justify-content:center;font-size:clamp(26px,6vw,58px);font-weight:900;line-height:1;filter:drop-shadow(0 7px 6px rgba(0,0,0,.22));user-select:none}.piece.o{color:#b54842}.piece.x{color:#27597a}.gamebar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px 0}.turn{font-weight:900;text-align:center;font-size:18px}.timer{text-align:center;font-size:28px;font-variant-numeric:tabular-nums;font-weight:900}.skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}.skin-card{background:#fff;border:2px solid #e0e5e8;border-radius:18px;padding:13px;text-align:center;transition:.15s}.skin-card.active{border-color:#244e69;box-shadow:0 0 0 3px rgba(36,78,105,.12)}.skin-preview{height:105px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#eef2f3,#cfd6d9);margin-bottom:10px;overflow:hidden}.skin-piece{font-size:65px;font-weight:900;line-height:1;filter:drop-shadow(0 9px 7px rgba(0,0,0,.25))}.bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}.bg-card{height:155px;cursor:pointer;transition:.16s;border-radius:18px;overflow:hidden;position:relative;border:3px solid transparent;box-shadow:0 9px 24px rgba(0,0,0,.12)}.bg-card:hover{transform:translateY(-2px)}.bg-card.active{border-color:#173e58;box-shadow:0 0 0 4px rgba(23,62,88,.14),0 12px 30px rgba(0,0,0,.18)}.bg-thumb{position:absolute;inset:0}.bg-name{position:absolute;left:10px;right:10px;bottom:9px;padding:7px 10px;border-radius:10px;background:rgba(0,0,0,.48);color:#fff;font-weight:800}.modalshade{position:fixed;inset:0;background:rgba(7,15,21,.62);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.modalshade.show{display:flex}.modal{width:min(680px,94vw);max-height:88vh;overflow:auto;background:#fff;border-radius:26px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.4)}.victory-mark{font-size:90px;text-align:center;margin:5px}.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}.confetti i{position:absolute;width:9px;height:22px;background:#e6b84f;animation:fall 2.5s linear infinite;top:-30px}.confetti i:nth-child(2n){background:#5686a4}.confetti i:nth-child(3n){background:#b95a55}@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}.notice{padding:13px 15px;border-radius:14px;background:#edf5f8;color:#39586a;margin:12px 0}.footer{max-width:1180px;margin:18px auto;color:#52616b;font-size:12px;text-align:center}
+@media(max-width:780px){.home-grid{grid-template-columns:1fr}.screen{padding-top:14px}.brand{font-size:18px}.panel{border-radius:22px}.board{width:min(94vw,680px)}}
+
+.bg-coastalcity{background:linear-gradient(#8fc2d5 0 42%,#367e94 43% 64%,#596267 65%);}.bg-coastalcity:after{bottom:10%;height:44%;background:repeating-linear-gradient(90deg,#39454b 0 26px,#89959a 27px 43px,#4a555a 44px 70px);box-shadow:0 -28px 0 rgba(255,255,255,.16)}
+.bg-mountainrail{background:linear-gradient(#9ebfd0 0 42%,#61785f 43% 100%)}.bg-mountainrail:after{bottom:12%;height:52%;background:linear-gradient(145deg,transparent 0 25%,#3d5145 26% 48%,transparent 49%),linear-gradient(35deg,transparent 0 34%,#71866d 35% 57%,transparent 58%);box-shadow:inset 0 -10px 0 #333}
+.bg-riverside{background:linear-gradient(#b7d2df 0 40%,#4e8c9d 41% 64%,#708566 65%)}.bg-riverside:after{bottom:14%;height:35%;background:repeating-linear-gradient(90deg,#536067 0 30px,#859197 31px 50px);opacity:.8}
+.bg-waterfront{background:linear-gradient(#9fc8da 0 40%,#497f91 41% 66%,#56636a 67%)}.bg-waterfront:after{bottom:12%;height:48%;background:repeating-linear-gradient(90deg,#36434a 0 38px,#758188 39px 65px);box-shadow:0 -24px 0 rgba(255,255,255,.12)}
+.bg-downtownrain{background:linear-gradient(#596872,#263138 52%,#141b20);}.bg-downtownrain:after{inset:18% 5% 12%;background:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,235,165,.24) 43px 50px,transparent 51px 90px);box-shadow:inset 0 0 45px rgba(0,0,0,.45)}
+.bg-forestmist{background:linear-gradient(#aebfc0,#72877a 55%,#41574d)}.bg-forestmist:after{inset:10% 0 0;background:radial-gradient(ellipse at 20% 45%,rgba(255,255,255,.32),transparent 28%),radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.24),transparent 30%),repeating-linear-gradient(82deg,transparent 0 34px,#344d40 35px 48px,transparent 49px 75px)}
+.bg-alpine{background:linear-gradient(#c4dce7 0 45%,#718b72 46% 100%)}.bg-alpine:after{bottom:17%;height:48%;background:linear-gradient(145deg,transparent 0 22%,#667a6d 23% 44%,transparent 45%),linear-gradient(35deg,transparent 0 30%,#8b9b8b 31% 52%,transparent 53%);filter:drop-shadow(0 5px 4px rgba(0,0,0,.2))}
+.bg-volcanic{background:linear-gradient(#b6c1c4 0 40%,#6e716d 41% 100%)}.bg-volcanic:after{bottom:18%;height:45%;background:linear-gradient(145deg,transparent 0 18%,#4b4d4a 19% 45%,transparent 46%),linear-gradient(25deg,transparent 0 40%,#343735 41% 62%,transparent 63%)}
+.bg-countryside{background:linear-gradient(#acd0df 0 48%,#91a96f 49% 72%,#63734f 73%)}.bg-countryside:after{bottom:14%;height:32%;background:repeating-linear-gradient(90deg,transparent 0 85px,#5b6e50 86px 92px,transparent 93px 150px)}
+.bg-nighttrain{background:linear-gradient(#172434 0 52%,#222a2e 53% 100%)}.bg-nighttrain:after{bottom:16%;height:28%;background:linear-gradient(#5f666b 0 8%,#2b3134 9% 28%,#7d817f 29% 34%,#2a2f31 35% 54%,#696d6b 55%);box-shadow:0 -40px 0 rgba(255,255,255,.08)}
+.bg-platform{background:linear-gradient(#a9c2cf 0 43%,#6f777b 44% 100%)}.bg-platform:after{bottom:15%;height:40%;left:7%;right:7%;background:repeating-linear-gradient(90deg,#4b555a 0 22px,#a4afb2 23px 52px);box-shadow:0 28px 0 #373d40}
+.bg-industrial{background:linear-gradient(#9aaeb7 0 48%,#596066 49% 100%)}.bg-industrial:after{bottom:12%;height:44%;background:repeating-linear-gradient(90deg,#30383c 0 65px,#687176 66px 105px);box-shadow:0 -22px 0 rgba(210,215,215,.14)}
+.bg-bridge{background:linear-gradient(#acd0df 0 45%,#4f8798 46% 70%,#687568 71%)}.bg-bridge:after{bottom:17%;height:28%;background:repeating-linear-gradient(90deg,#3f474a 0 12px,#8a9293 13px 28px);box-shadow:0 26px 0 #303639}
+.bg-seasidecliff{background:linear-gradient(#9cc8d9 0 44%,#3c8496 45% 66%,#697765 67%)}.bg-seasidecliff:after{bottom:14%;height:42%;background:linear-gradient(145deg,transparent 0 20%,#5c625b 21% 55%,transparent 56%)}
+.bg-autumnroad{background:linear-gradient(#c0cbd0 0 46%,#8c6a4e 47% 100%)}.bg-autumnroad:after{inset:10% 0 12%;background:radial-gradient(circle at 16% 20%,#d47a3c 0 11px,transparent 12px),radial-gradient(circle at 34% 14%,#a94932 0 10px,transparent 11px),radial-gradient(circle at 72% 22%,#e09a42 0 12px,transparent 13px),linear-gradient(175deg,transparent 0 55%,#555c53 56% 66%,transparent 67%)}
+.bg-wintertown{background:linear-gradient(#d5e2e8 0 54%,#c4cdd0 55% 100%)}.bg-wintertown:after{bottom:13%;height:40%;background:repeating-linear-gradient(90deg,#667078 0 58px,#e2e6e7 59px 75px);box-shadow:0 -28px 0 rgba(255,255,255,.65)}
+.bg-springriver{background:linear-gradient(#b8d9e4 0 45%,#5f9a9b 46% 67%,#86a875 68%)}.bg-springriver:after{bottom:12%;height:44%;background:radial-gradient(circle at 20% 18%,#efb1c2 0 7px,transparent 8px),radial-gradient(circle at 38% 12%,#f3c2cd 0 8px,transparent 9px),radial-gradient(circle at 76% 21%,#e9a7b9 0 8px,transparent 9px)}
+.bg-summergreen{background:linear-gradient(#a8d0e1 0 44%,#5f8b57 45% 100%)}.bg-summergreen:after{inset:8% 0 8%;background:repeating-linear-gradient(78deg,transparent 0 35px,#365a3e 36px 53px,transparent 54px 90px);opacity:.8}
+
+/* realistic skin materials */
+.wood{color:#77482f;text-shadow:inset 0 0 0 transparent;background:linear-gradient(135deg,#e0a36a,#8d512f 48%,#d48a51);-webkit-background-clip:text;background-clip:text;color:transparent}.walnut{background:linear-gradient(135deg,#d49a62,#4b2418 48%,#9c5c36);-webkit-background-clip:text;background-clip:text;color:transparent}.bamboo{background:linear-gradient(90deg,#e7d890,#8c9c3f,#d9ca72);-webkit-background-clip:text;background-clip:text;color:transparent}.gold{background:linear-gradient(135deg,#fff1a8,#b87908 35%,#fff4a9 55%,#9c6505);-webkit-background-clip:text;background-clip:text;color:transparent}.silver{background:linear-gradient(135deg,#fff,#78858d 40%,#f8fbfc 65%,#6f7b83);-webkit-background-clip:text;background-clip:text;color:transparent}.copper{background:linear-gradient(135deg,#f0b48a,#8d402c 42%,#e1a17c);-webkit-background-clip:text;background-clip:text;color:transparent}.steel{background:linear-gradient(135deg,#e8f1f4,#53636b 42%,#fff 62%,#73838b);-webkit-background-clip:text;background-clip:text;color:transparent}.glass{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(93,180,218,.6) 42%,rgba(255,255,255,.95) 65%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 15px rgba(105,205,240,.55)}.ice{background:linear-gradient(135deg,#fff,#93d7ef 45%,#dff7ff 65%,#6bb7d6);-webkit-background-clip:text;background-clip:text;color:transparent}.ruby{background:linear-gradient(135deg,#ffb0b0,#8d111b 45%,#ff7272 70%,#5c0710);-webkit-background-clip:text;background-clip:text;color:transparent}.sapphire{background:linear-gradient(135deg,#b9e5ff,#154e91 45%,#73b8ff 70%,#082c59);-webkit-background-clip:text;background-clip:text;color:transparent}.emerald{background:linear-gradient(135deg,#b5f0cc,#087447 45%,#73d9a1 70%,#03492d);-webkit-background-clip:text;background-clip:text;color:transparent}.amethyst{background:linear-gradient(135deg,#efd2ff,#64248f 45%,#bd78e7 70%,#3c155c);-webkit-background-clip:text;background-clip:text;color:transparent}.obsidian{background:linear-gradient(135deg,#76818a,#050709 42%,#5d6870 68%,#111);-webkit-background-clip:text;background-clip:text;color:transparent}.marble{background:linear-gradient(145deg,#fdfdfd,#aab2b8 35%,#fff 55%,#7d8990);-webkit-background-clip:text;background-clip:text;color:transparent}.ceramic{background:linear-gradient(135deg,#fff,#dbe6ed 42%,#fff 68%,#a6b4bd);-webkit-background-clip:text;background-clip:text;color:transparent}.lacquer{background:linear-gradient(135deg,#e83e43,#681216 44%,#ef5350 66%,#3e080b);-webkit-background-clip:text;background-clip:text;color:transparent}.carbon{background:repeating-linear-gradient(45deg,#d0d4d7 0 4px,#4d555a 4px 8px);-webkit-background-clip:text;background-clip:text;color:transparent}.leather{background:linear-gradient(135deg,#a86b45,#4d2719 48%,#8e5638);-webkit-background-clip:text;background-clip:text;color:transparent}.pearl{background:linear-gradient(135deg,#fff,#d8cde8 35%,#f9d7e6 55%,#b8d7e6);-webkit-background-clip:text;background-clip:text;color:transparent}.neon{background:linear-gradient(135deg,#ff68b0,#61d7ff 50%,#9c70ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 18px rgba(92,205,255,.7)}.meteor{background:linear-gradient(135deg,#fff,#aeb8c2 35%,#58636e 52%,#d9e0e4);-webkit-background-clip:text;background-clip:text;color:transparent}.sand{background:linear-gradient(135deg,#f0d39a,#a97843 50%,#e4c486);-webkit-background-clip:text;background-clip:text;color:transparent}.stone{background:linear-gradient(135deg,#e2e0d8,#77766e 45%,#c9c6ba);-webkit-background-clip:text;background-clip:text;color:transparent}.train{background:linear-gradient(135deg,#dceaf1,#3b6e8b 42%,#b6d0dd 68%,#28526d);-webkit-background-clip:text;background-clip:text;color:transparent}.rail{background:linear-gradient(135deg,#f1f4f5,#59676f 40%,#d4dde1 60%,#39464d);-webkit-background-clip:text;background-clip:text;color:transparent}.plane{background:linear-gradient(135deg,#fff,#a6b9c4 45%,#eef5f8);-webkit-background-clip:text;background-clip:text;color:transparent}.ship{background:linear-gradient(135deg,#d7e8ef,#31576c 48%,#9ec0cf);-webkit-background-clip:text;background-clip:text;color:transparent}.leaf{background:linear-gradient(135deg,#d4edb5,#4f8a42 50%,#b5d68d);-webkit-background-clip:text;background-clip:text;color:transparent}.flower{background:linear-gradient(135deg,#fff,#d47c9e 45%,#f0b7ca);-webkit-background-clip:text;background-clip:text;color:transparent}.ocean{background:linear-gradient(135deg,#d9fbff,#1d7e9e 45%,#75d5e8);-webkit-background-clip:text;background-clip:text;color:transparent}.sun{background:linear-gradient(135deg,#fff8a0,#e29b24 45%,#ffcf58);-webkit-background-clip:text;background-clip:text;color:transparent}.moon{background:linear-gradient(135deg,#fff,#b6bfca 50%,#737f8c);-webkit-background-clip:text;background-clip:text;color:transparent}.star{background:linear-gradient(135deg,#fff8bf,#f3c849 50%,#d18a16);-webkit-background-clip:text;background-clip:text;color:transparent}.rain{background:linear-gradient(135deg,#dff7ff,#5e91ae 50%,#31546a);-webkit-background-clip:text;background-clip:text;color:transparent}.snow{background:linear-gradient(135deg,#fff,#b8dced 50%,#e9faff);-webkit-background-clip:text;background-clip:text;color:transparent}.fire{background:linear-gradient(135deg,#fff29b,#ee711d 42%,#a52618 72%);-webkit-background-clip:text;background-clip:text;color:transparent}.aurora{background:linear-gradient(135deg,#9af4d0,#45a7c4 45%,#9368c5 75%);-webkit-background-clip:text;background-clip:text;color:transparent}.cherry{background:linear-gradient(135deg,#ffe5ed,#c96d88 50%,#7d3d54);-webkit-background-clip:text;background-clip:text;color:transparent}.autumn{background:linear-gradient(135deg,#f7c873,#bd6737 48%,#7a3525);-webkit-background-clip:text;background-clip:text;color:transparent}.denim{background:linear-gradient(135deg,#8db5d2,#1e4e75 48%,#6898b9);-webkit-background-clip:text;background-clip:text;color:transparent}.matte{background:linear-gradient(135deg,#9ea7aa,#4d5558 50%,#7f888b);-webkit-background-clip:text;background-clip:text;color:transparent}.white{background:linear-gradient(135deg,#fff,#dfe5e8 55%,#aeb8bd);-webkit-background-clip:text;background-clip:text;color:transparent}.black{background:linear-gradient(135deg,#6f7477,#090b0c 48%,#43484b);-webkit-background-clip:text;background-clip:text;color:transparent}.rose{background:linear-gradient(135deg,#ffe5e9,#c07d89 48%,#7f414e);-webkit-background-clip:text;background-clip:text;color:transparent}.platinum{background:linear-gradient(135deg,#fff,#abb7c0 40%,#f8fbfd 65%,#68767f);-webkit-background-clip:text;background-clip:text;color:transparent}.titanium{background:linear-gradient(135deg,#eef3f5,#64727b 44%,#c5d0d5 70%);-webkit-background-clip:text;background-clip:text;color:transparent}.bronze{background:linear-gradient(135deg,#e5c08c,#76502c 46%,#c9995c);-webkit-background-clip:text;background-clip:text;color:transparent}.jade{background:linear-gradient(135deg,#d5f4df,#34866c 45%,#8ed0ae);-webkit-background-clip:text;background-clip:text;color:transparent}.lapis{background:linear-gradient(135deg,#8ec8e9,#24527d 50%,#437da5);-webkit-background-clip:text;background-clip:text;color:transparent}.onyx{background:linear-gradient(135deg,#62666a,#111 45%,#3c4145);-webkit-background-clip:text;background-clip:text;color:transparent}.granite{background:linear-gradient(135deg,#d2d1cb,#686b6a 45%,#b0b1ab);-webkit-background-clip:text;background-clip:text;color:transparent}.carbon2{background:linear-gradient(135deg,#818b90,#1c252a 45%,#59656c);-webkit-background-clip:text;background-clip:text;color:transparent}.chrome{background:linear-gradient(135deg,#fff,#606d76 25%,#fff 43%,#7e8b94 63%,#f9fbfc);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Enhanced easy skin selector */
+.skin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.skin-target{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.player-tab{border:2px solid #dbe2e6;background:#fff;border-radius:20px;padding:12px;display:grid;grid-template-columns:58px 1fr;grid-template-rows:1fr 1fr;text-align:left;align-items:center;gap:0 10px}.player-tab.active{border-color:#244e69;box-shadow:0 0 0 4px rgba(36,78,105,.10)}.player-tab span{grid-row:1/3;font-size:44px;text-align:center}.player-tab small{color:#6a7780}.skin-cats{display:flex;gap:8px;overflow:auto;padding:3px 2px 12px;scrollbar-width:thin}.catbtn{white-space:nowrap;border:1px solid #d8e0e4;background:#f7f9fa;border-radius:999px;padding:9px 14px;font-weight:800}.catbtn.active{background:#244e69;color:#fff;border-color:#244e69}.skin-card{cursor:pointer;min-height:160px}.skin-card small{display:block;color:#78858d;margin-top:4px}.emoji-preview{background:radial-gradient(circle at 30% 25%,#fff,#eef2f3 55%,#d8dfe2)!important}.emoji-preview span{font-size:72px;line-height:1;filter:drop-shadow(0 7px 6px rgba(0,0,0,.18))}.skin-card:hover{transform:translateY(-2px);border-color:#9fb5c2}.skin-card:active{transform:scale(.98)}
+</style>
+<style id="marubatsu-realistic-pieces">
+.piece{position:relative;display:grid;place-items:center;border-radius:50%;font-weight:900;overflow:hidden;isolation:isolate;
+box-shadow:inset 0 2px 6px rgba(255,255,255,.7),inset 0 -7px 13px rgba(0,0,0,.3),0 7px 15px rgba(0,0,0,.28);
+border:1px solid rgba(255,255,255,.55)}
+.piece:before{content:"";position:absolute;inset:6%;border-radius:50%;
+background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.95),rgba(255,255,255,.2) 18%,transparent 43%);
+pointer-events:none;mix-blend-mode:screen}
+.piece:after{content:"";position:absolute;inset:0;border-radius:50%;
+background:linear-gradient(145deg,rgba(255,255,255,.25),transparent 34%,rgba(0,0,0,.24));pointer-events:none}
+.piece.p1{transform:scale(1.08);z-index:2}
+.piece.p2{transform:scale(1)}
+.piece[data-material=gold]{background:linear-gradient(145deg,#fff4ad,#d7a52a 28%,#fff0a0 47%,#9c690c 73%,#f2ce55);color:#4b3200}
+.piece[data-material=silver]{background:linear-gradient(145deg,#fff,#aeb7bf 26%,#f7fbff 45%,#69747d 72%,#e1e8ed);color:#263039}
+.piece[data-material=copper]{background:linear-gradient(145deg,#ffd5b1,#b85b2b 28%,#ef9b66 48%,#6f2e15 76%,#d87942);color:#43180b}
+.piece[data-material=wood]{background:repeating-linear-gradient(12deg,#d19a59 0 5px,#875129 6px 8px,#e0ad70 9px 13px);color:#3a210e}
+.piece[data-material=marble]{background:linear-gradient(135deg,#fff 0 34%,#c8cdd0 36% 43%,#fafaf8 44% 67%,#adb5ba 68% 72%,#fff 73%);color:#333}
+.piece[data-material=obsidian]{background:radial-gradient(circle at 30% 20%,#687581,#151b22 38%,#030507 80%);color:#fff}
+.piece[data-material=glass]{background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.95),rgba(100,190,255,.42) 22%,rgba(30,100,180,.3) 55%,rgba(10,30,60,.58));color:#fff}
+.piece[data-material=emerald]{background:radial-gradient(circle at 28% 18%,#c3ffe3,#15966a 28%,#07563d 72%,#012c20);color:#eafff7}
+.piece[data-material=ruby]{background:radial-gradient(circle at 30% 18%,#ffd5d5,#c62f45 25%,#6b071b 72%,#250008);color:#fff}
+.piece[data-material=sapphire]{background:radial-gradient(circle at 30% 18%,#d8efff,#287bd2 28%,#082c75 75%,#02102d);color:#fff}
+.piece[data-material=ceramic]{background:linear-gradient(145deg,#fff,#e9e6dc 45%,#b7b3aa);color:#303030}
+.piece[data-material=carbon]{background:repeating-linear-gradient(45deg,#383c3f 0 4px,#16191b 4px 8px);color:#fff}
+.piece[data-material=ice]{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(132,215,255,.72) 40%,rgba(38,121,188,.7));color:#12456b}
+.piece[data-material=lacquer]{background:linear-gradient(145deg,#4b0000,#a30000 35%,#210000 70%,#720000);color:#ffd76a}
+.piece[data-material=forest]{background:radial-gradient(circle at 28% 18%,#b9e9a6,#3f8f43 35%,#123f24 78%);color:#efffe8}
+.piece[data-material=ocean]{background:radial-gradient(circle at 30% 18%,#b9f5ff,#198fc1 34%,#063b67 80%);color:#eaffff}
+</style>
+<style id="marubatsu-realistic-backgrounds">
+.bg-art{background-size:cover;background-position:center;transition:background .25s ease}
+.bg-mountain{background:linear-gradient(180deg,#8db8d3 0 42%,#dfe8df 43% 52%,#5e7760 53% 100%),linear-gradient(130deg,transparent 0 38%,#44594b 39% 56%,transparent 57%)}
+.bg-forest{background:radial-gradient(ellipse at 50% 70%,#91a36d 0 18%,transparent 19%),linear-gradient(90deg,#1f3a2d,#55714c 35%,#1d392d 70%,#6c7e55)}
+.bg-sea{background:linear-gradient(#a8d4e8 0 43%,#4d9fc0 44% 62%,#d8c28b 63% 100%)}
+.bg-snow{background:linear-gradient(#9fc7df 0 45%,#eef7fa 46% 100%)}
+.bg-city{background:linear-gradient(#879ba9 0 48%,#59646a 49% 100%),repeating-linear-gradient(90deg,#28333a 0 22px,#69737a 23px 45px)}
+.bg-sakura{background:radial-gradient(circle at 18% 28%,#f2b6c8 0 9%,transparent 10%),radial-gradient(circle at 74% 20%,#f5c4d2 0 11%,transparent 12%),linear-gradient(#a9c7d8 0 52%,#78945e 53% 100%)}
+.bg-night{background:radial-gradient(circle at 20% 22%,#fff 0 1px,transparent 2px),radial-gradient(circle at 70% 18%,#fff 0 1px,transparent 2px),linear-gradient(#101c3c,#3a5677 55%,#111a23)}
+.bg-station{background:linear-gradient(#9eb3c0 0 48%,#56636a 49% 100%),linear-gradient(90deg,transparent 0 35%,#d8dde0 36% 64%,transparent 65%)}
+.bg-harbor{background:linear-gradient(#a8d2e2 0 42%,#367b91 43% 70%,#596b6e 71% 100%)}
+.bg-sunset{background:linear-gradient(#e8905d 0,#e7c16d 45%,#637b87 70%,#273238 100%)}
+.bg-rain{background:repeating-linear-gradient(105deg,rgba(255,255,255,.12) 0 2px,transparent 3px 14px),linear-gradient(#526876,#28343d 70%,#182127)}
+.bg-desert{background:linear-gradient(#d8b875 0 55%,#b98242 56% 100%)}
+.bg-lake{background:linear-gradient(#9dc8dc 0 48%,#477d91 49% 64%,#65734f 65% 100%)}
+.bg-autumn{background:radial-gradient(circle at 20% 25%,#d76c3b 0 8%,transparent 9%),radial-gradient(circle at 78% 32%,#b33b25 0 10%,transparent 11%),linear-gradient(#9bb5c2,#d5a05a 60%,#5e7148)}
+.bg-rail{background:linear-gradient(#b6cbd2 0 58%,#5f665e 59% 70%,#303337 71% 76%,#77716a 77% 100%)}
+.bg-coast{background:linear-gradient(#b3d8e4 0 48%,#358baa 49% 70%,#7b8b62 71% 100%)}
+</style>
+
+<style id="illustration-piece-upgrade">
+/* Illustration-first pieces: no go stones, no circular stone container */
+.cell .piece,.piece{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  width:82%!important;height:82%!important;
+  display:grid!important;place-items:center!important;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif!important;
+  font-size:clamp(28px,6vw,58px)!important;
+  line-height:1!important;
+  text-shadow:0 2px 5px rgba(0,0,0,.28)!important;
+  transform:none!important;
+  overflow:visible!important;
+}
+.cell .piece:before,.cell .piece:after,.piece:before,.piece:after{display:none!important}
+.piece.p1{transform:scale(1.08)!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25))}
+.piece.p2{transform:scale(1)!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25))}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+window.MARUBATSU_FIREBASE_CONFIG={apiKey:"AIzaSyD9TAnnBGegSKP3e7treNqbxfpMt5EM-5EU",authDomain:"marubatu-line.firebaseapp.com",projectId:"marubatu-line",storageBucket:"marubatu-line.firebasestorage.app",messagingSenderId:"925091652352",appId:"1:925091652352:web:b907db3523cac4fa38c9e5",measurementId:"G-4JSY3EWCGP",databaseURL:"__FIREBASE_DATABASE_URL__"};
+try{firebase.initializeApp(window.MARUBATSU_FIREBASE_CONFIG);window.MARUBATSU_DB=firebase.database();window.MARUBATSU_FIREBASE_OK=true}catch(e){console.warn("Firebase initialization failed",e);window.MARUBATSU_FIREBASE_OK=false}
+</script>
+
+<style id="marubatsu-final-upgrade">
+/* FINAL BUILD: expanded content + photographic backgrounds */
+.final-build-badge{position:fixed;right:12px;bottom:10px;z-index:30;padding:7px 10px;border-radius:999px;background:rgba(20,34,43,.78);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;backdrop-filter:blur(8px)}
+.photo-bg{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+.bg-photosea{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photocity{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photomountain{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photoforest{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photoriver{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photolake{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photosunset{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photonight{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photorail{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photostation{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photoautumn{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photosnow{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photocoastcity{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photoharbor{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1498307833015-e7b400441eb8?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.bg-photodesert{background-image:linear-gradient(rgba(10,20,25,.10),rgba(10,20,25,.18)),url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=88")!important;background-size:cover!important;background-position:center!important}
+.skin-symbol{font-size:72px;line-height:1;filter:drop-shadow(0 8px 6px rgba(0,0,0,.24));transition:transform .15s}.skin-card:hover .skin-symbol{transform:scale(1.12)}
+</style>
+</head>
+<body>
+<div class="app"><div id="bg" class="bg-art bg-mountain"></div><main class="screen">
+<div class="topbar"><div class="brand">MARUBATSU LINE</div><div class="nav-actions"><button class="iconbtn" id="homeBtn" title="ホーム">⌂</button><button class="iconbtn" id="backBtn" title="戻る">←</button></div></div>
+<div id="page" class="page"></div><div class="footer">MARUBATSU LINE · FINAL BUILD</div><div class="final-build-badge">FINAL BUILD · 着せ替え拡張版</div></main></div>
+<div id="modal" class="modalshade"><div class="modal" id="modalInner"></div></div>
+<script>
+'use strict';
+const SKEY='marubatsu_line_v8';
+const defaults={page:'home',previous:'home',mode:'menu',size:3,win:3,p1:'',p2:'',turn:0,starter:0,board:[],history:[],wins:0,draws:0,losses:0,skin:'classicO',skin2:'classicX',background:'mountain',sound:0,active:false,result:null,winning:[],timerRemaining:60,timerStartedAt:null,onlineRoom:null,onlineRole:null,onlineConnected:false,_onlineResultShown:false};
+const emojiThemes=[
+ ['classicO','⭕️','クラシック・丸'],['classicX','❌','クラシック・バツ'],
+ ['train','🚆','鉄道'],['shinkansen','🚄','新幹線'],['station','🚉','駅'],['rail','🛤️','線路'],
+ ['maple','🍁','紅葉'],['cherry','🌸','桜'],['bamboo','🎋','竹'],['flower','🌷','花'],['leaf','🍃','葉'],
+ ['mountain','🏔️','山'],['forest','🌲','森林'],['ocean','🌊','海'],['sun','☀️','太陽'],['moon','🌙','月'],['star','⭐','星'],['snow','❄️','雪'],
+ ['cat','🐈','猫'],['dog','🐕','犬'],['fox','🦊','きつね'],['bear','🐻','くま'],['bird','🐦','鳥'],
+ ['apple','🍎','りんご'],['peach','🍑','桃'],['orange','🍊','オレンジ'],['grape','🍇','ぶどう'],['coffee','☕','コーヒー'],['cake','🍰','ケーキ'],['bread','🍞','パン'],
+ ['music','🎵','音楽'],['game','🎮','ゲーム'],['ball','⚽','サッカー'],['trophy','🏆','トロフィー'],
+ ['airplane','✈️','飛行機'],['ship','🚢','船'],['car','🚗','車'],['bicycle','🚲','自転車'],
+ ['camera','📷','カメラ'],['book','📖','本'],['school','🏫','学校'],['house','🏠','家'],
+ ['bus','🚌','バス'],['tram','🚋','路面電車'],['metro','🚇','地下鉄'],['taxi','🚕','タクシー'],['motorcycle','🏍️','バイク'],['helicopter','🚁','ヘリコプター'],['sailboat','⛵','ヨット'],['ferry','⛴️','フェリー'],['anchor','⚓','錨'],
+ ['deer','🦌','鹿'],['wolf','🐺','オオカミ'],['panda','🐼','パンダ'],['penguin','🐧','ペンギン'],['koala','🐨','コアラ'],['lion','🦁','ライオン'],['tiger','🐯','トラ'],['horse','🐎','馬'],['whale','🐋','クジラ'],['dolphin','🐬','イルカ'],
+ ['ramen','🍜','ラーメン'],['sushi','🍣','寿司'],['rice','🍚','ごはん'],['burger','🍔','ハンバーガー'],['pizza','🍕','ピザ'],['donut','🍩','ドーナツ'],['icecream','🍨','アイスクリーム'],['tea','🍵','お茶'],['melon','🍈','メロン'],['watermelon','🍉','すいか'],
+ ['soccer','⚽','サッカー'],['baseball','⚾','野球'],['basketball','🏀','バスケットボール'],['tennis','🎾','テニス'],['medal','🏅','メダル'],['dice','🎲','サイコロ'],['puzzle','🧩','パズル'],['chess','♟️','チェス'],
+ ['rocket','🚀','ロケット'],['planet','🪐','惑星'],['fire','🔥','炎'],['crystal','💎','宝石'],['umbrella','☔','雨'],['rainbow','🌈','虹'],['snowman','⛄','雪だるま'],['lantern','🏮','提灯'],
+ ['localtrain','🚃','通勤電車'],['bullettrain','🚅','高速列車'],['monorail','🚝','モノレール'],['lightrail','🚈','軽快電車'],['railcar','🚞','客車列車'],['locomotive','🚂','機関車'],['tramcar','🚋','路面電車'],
+ ['subway','🚇','地下鉄'],['highway','🛣️','高速道路'],['traffic','🚦','信号機'],['bridgeicon','🌉','橋'],['lighthouse','🗼','灯台'],['castle','🏯','城'],['torii','⛩️','鳥居'],
+ ['camp','🏕️','キャンプ'],['tent','⛺','テント'],['palm','🌴','ヤシの木'],['cactus','🌵','サボテン'],['clover','🍀','四つ葉'],['sunflower','🌻','ひまわり'],['rose','🌹','バラ'],['tulip','🌷','チューリップ'],
+ ['rabbit','🐇','うさぎ'],['hamster','🐹','ハムスター'],['monkey','🐒','サル'],['elephant','🐘','ゾウ'],['giraffe','🦒','キリン'],['zebra','🦓','シマウマ'],['seal','🦭','アザラシ'],['octopus','🐙','タコ'],['fish','🐟','魚'],['crab','🦀','カニ'],
+ ['curry','🍛','カレー'],['tempura','🍤','天ぷら'],['soba','🍜','そば'],['udon','🍜','うどん'],['onigiri','🍙','おにぎり'],['dango','🍡','だんご'],['taiyaki','🐟','たい焼き'],['pudding','🍮','プリン'],['cookie','🍪','クッキー'],['chocolate','🍫','チョコレート'],
+ ['guitar','🎸','ギター'],['piano','🎹','ピアノ'],['drum','🥁','ドラム'],['microphone','🎤','マイク'],['headphone','🎧','ヘッドホン'],['film','🎬','映画'],['art','🎨','アート'],
+ ['camera2','📸','写真'],['phone','📱','スマートフォン'],['computer','💻','パソコン'],['watch','⌚','時計'],['key','🔑','鍵'],['bell','🔔','ベル'],['gift','🎁','ギフト'],['medal2','🏅','金メダル'],
+ ['soccerball','⚽','サッカーボール'],['baseball2','⚾','野球ボール'],['basketball2','🏀','バスケットボール'],['volleyball','🏐','バレーボール'],['rugby','🏉','ラグビーボール'],['ski','🎿','スキー'],['skate','⛸️','スケート'],
+ ['earth','🌍','地球'],['satellite','🛰️','人工衛星'],['comet','☄️','彗星'],['fullmoon','🌕','満月'],['crescent','🌙','三日月'],['cloud','☁️','雲'],['raincloud','🌧️','雨雲'],['thunder','⛈️','雷雨'],['wind','🌬️','風'],['volcano','🌋','火山'],['wave','🌊','大波'],['shell','🐚','貝殻']
+];
+const emojiMap=Object.fromEntries(emojiThemes.map(x=>[x[0],x[1]]));
+const backgrounds=[
+ ['mountain','山岳・朝'],['forest','深い森林'],['sea','青い海岸'],['snow','雪山'],['city','都市夜景'],['sakura','桜並木'],['night','星空'],['station','近代駅'],['harbor','港湾'],['sunset','夕焼け'],['rain','雨の街'],['desert','砂丘'],['lake','湖畔'],['autumn','紅葉の山'],['rail','地上線路'],['coast','海辺'],
+ ['photosea','リアルな海岸'],['photocity','リアルな都市'],['photomountain','リアルな山岳'],['photoforest','リアルな森林'],['photoriver','リアルな滝・川'],['photolake','リアルな湖'],['photosunset','リアルな夕景'],['photonight','リアルな星空'],['photorail','リアルな鉄道風景'],['photostation','リアルな駅周辺'],['photoautumn','リアルな秋景色'],['photosnow','リアルな雪景色'],['photocoastcity','海辺の都市'],['photoharbor','リアルな港'],['photodesert','リアルな砂漠'], ['coastalcity','海沿いの都市'],['mountainrail','山間の鉄道'],['riverside','川沿いの街'],['waterfront','ウォーターフロント'],['downtownrain','雨の繁華街'],['forestmist','霧の森林'],['alpine','高原の山'],['volcanic','火山地帯'],['countryside','田園風景'],['nighttrain','夜の線路'],['platform','ホームからの眺め'],['industrial','工業地帯'],['bridge','鉄橋と川'],['seasidecliff','海岸崖'],['autumnroad','秋の並木道'],['wintertown','雪の街'],['springriver','春の川辺'],['summergreen','夏の緑']
+];
+function readStored(){try{const a=JSON.parse(localStorage.getItem('MARUBATSU_LINE_AUTOSAVE_V2')||'null');if(a?.state)return a.state;const b=JSON.parse(localStorage.getItem(SKEY)||'null');return b||null}catch(e){return null}}
+function load(){try{return {...defaults,...(readStored()||{})}}catch(e){return {...defaults}}}
+function normalizeNameForCheck(v){return String(v||'').normalize('NFKC').toLowerCase().replace(/[\s_\-\u2010-\u2015\u2212]+/g,'');}
+const BLOCKED_NAMES=['うんこ','ウンコ','💩','unko'];
+function isBadName(v){const n=normalizeNameForCheck(v);return BLOCKED_NAMES.some(x=>n===normalizeNameForCheck(x)||n.includes(normalizeNameForCheck(x)));}
+function validatePlayerName(v){if(!String(v||'').trim())return 'プレイヤー名を入力してください。';if(isBadName(v))return 'このプレイヤー名は使用できません。別の名前を入力してください。';if(!/^[\p{L}\p{N}\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}_\-]+$/u.test(String(v).trim()))return '使用できない文字が含まれています。';return ''; }
+window.normalizeNameForCheck=normalizeNameForCheck;window.isBadName=isBadName;window.validatePlayerName=validatePlayerName;
+let state=load();
+if(!state.skinCustomized && state.skin==='train' && state.skin2==='station'){state.skin='classicO';state.skin2='classicX';state.skinCustomized=false;}
+state.skinTarget=state.skinTarget===2?2:1;
+let timer=null;
+let winning=Array.isArray(state.winning)?state.winning:[];
+function save(){try{state.winning=winning;localStorage.setItem(SKEY,JSON.stringify(state));window.marubatsuAutoSave?.()}catch(e){}}
+function firebaseReady(){return !!(window.MARUBATSU_FIREBASE_OK&&window.MARUBATSU_DB&&window.MARUBATSU_FIREBASE_CONFIG.databaseURL&&window.MARUBATSU_FIREBASE_CONFIG.databaseURL!=='__FIREBASE_DATABASE_URL__')}
+let onlineRoomRef=null,onlineRoomHandler=null,onlinePresenceRef=null,onlineLastSnapshot=null;
+function roomCode(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let x='';for(let i=0;i<4;i++)x+=c[Math.floor(Math.random()*c.length)];return x}
+function onlineKey(n){return encodeURIComponent(String(n||'').trim()).slice(0,100)}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function cleanupOnline(){try{if(onlineRoomRef&&onlineRoomHandler)onlineRoomRef.off('value',onlineRoomHandler);if(onlinePresenceRef)onlinePresenceRef.onDisconnect().cancel()}catch(e){}onlineRoomRef=null;onlineRoomHandler=null;onlinePresenceRef=null;onlineLastSnapshot=null;state.onlineConnected=false}
+function onlineKeyStats(name){return {name:String(name||'').slice(0,20),wins:0,draws:0,losses:0,updatedAt:firebase.database.ServerValue.TIMESTAMP}}
+function pushOnlineResult(v){if(!firebaseReady())return;const a=[];if(state.p1)a.push({n:state.p1,r:v==='draw'?'d':v==='X'?'w':'l'});if(state.p2&&state.p2!=='AI')a.push({n:state.p2,r:v==='draw'?'d':v==='O'?'w':'l'});a.forEach(x=>window.MARUBATSU_DB.ref('onlineRankings/'+onlineKey(x.n)).transaction(cur=>{cur=cur||onlineKeyStats(x.n);cur.name=x.n;cur.wins=Number(cur.wins||0)+(x.r==='w');cur.draws=Number(cur.draws||0)+(x.r==='d');cur.losses=Number(cur.losses||0)+(x.r==='l');cur.updatedAt=firebase.database.ServerValue.TIMESTAMP;return cur}))}
+function roomBase(code){return {code,hostName:'',guestName:'',board:Array(state.size*state.size).fill(''),size:state.size,win:state.win,turn:0,starter:0,active:false,result:null,winning:[],timerRemaining:60,timerStartedAt:null,hostOnline:false,guestOnline:false,createdAt:firebase.database.ServerValue.TIMESTAMP}}
+function createOnlineRoom(){if(!firebaseReady()){alert('Firebaseに接続できません。\nFirebase設定またはネット接続を確認してください。');return}const code=roomCode();const ref=window.MARUBATSU_DB.ref('rooms/'+code);ref.set(roomBase(code)).then(()=>{state.onlineRoom=code;state.onlineRole='host';state.mode='online';state.page='online';state._onlineResultShown=false;save();render();onlineRoomListen()}).catch(e=>{console.error(e);alert('部屋を作成できませんでした。\n'+(e.message||e))})}
+function joinOnlineRoom(code){if(!firebaseReady()){alert('Firebaseに接続できません。');return}code=String(code||'').trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(code)){alert('4文字のルームコードを入力してください。');return}const ref=window.MARUBATSU_DB.ref('rooms/'+code);ref.once('value').then(s=>{if(!s.exists()){alert('そのルームは見つかりません。');return}if(s.val().guestName){alert('このルームは満員です。');return}state.onlineRoom=code;state.onlineRole='guest';state.mode='online';state.page='online';save();onlineRoomListen()}).catch(e=>alert('ルームを確認できませんでした。\n'+e.message))}
+function onlineRoomListen(){cleanupOnline();if(!state.onlineRoom)return;onlineRoomRef=window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom);onlineRoomHandler=snap=>{const d=snap.val();if(!d){cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.page='setup';render();return}onlineLastSnapshot=d;state.size=Number(d.size||3);state.win=Number(d.win||3);state.board=Array.isArray(d.board)?d.board:Object.values(d.board||{});state.turn=Number(d.turn||0);state.starter=Number(d.starter||0);state.p1=d.hostName||'';state.p2=d.guestName||'';state.active=!!d.active;state.result=d.result||null;winning=Array.isArray(d.winning)?d.winning:[];state.timerRemaining=Number(d.timerRemaining??60);state.timerStartedAt=d.timerStartedAt||null;state.onlineConnected=state.onlineRole==='host'?!!d.guestOnline:!!d.hostOnline;if(state.active&&state.page==='online')state.page='game';if(state.page==='online'||state.page==='game')render();if(d.result&&!state._onlineResultShown){state._onlineResultShown=true;setTimeout(showVictory,40)}syncClock()};onlineRoomRef.on('value',onlineRoomHandler);onlinePresenceRef=onlineRoomRef.child(state.onlineRole==='host'?'hostOnline':'guestOnline');onlinePresenceRef.set(true);onlinePresenceRef.onDisconnect().set(false)}
+function updateOnlineRoom(p){if(!firebaseReady()||!state.onlineRoom)return Promise.resolve();return window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom).update(p)}
+function setOnlineOwnName(name){const e=validatePlayerName(name);if(e){alert(e);return}const k=state.onlineRole==='host'?'hostName':'guestName';updateOnlineRoom({[k]:name})}
+function startOnlineMatch(){if(state.onlineRole!=='host')return;const d=onlineLastSnapshot||{};if(!d.hostName||!d.guestName){alert('両方のプレイヤー名を登録してください。');return}state._onlineResultShown=false;updateOnlineRoom({board:Array(state.size*state.size).fill(''),size:state.size,win:state.win,turn:Number(d.starter||0),starter:Number(d.starter||0),active:true,result:null,winning:[],timerRemaining:60,timerStartedAt:firebase.database.ServerValue.TIMESTAMP})}
+function onlineMove(i){if(!state.active||!onlineLastSnapshot||state.board[i]||winning.length)return;const myTurn=state.onlineRole==='host'?state.turn===0:state.turn===1;if(!myTurn)return;const b=state.board.slice(),v=state.turn===0?'X':'O';b[i]=v;const w=checkWin(b,v);const patch={board:b};if(w)Object.assign(patch,{winning:w,result:v,active:false,timerRemaining:currentRemaining(),timerStartedAt:null});else if(b.every(Boolean))Object.assign(patch,{winning:[],result:'draw',active:false,timerRemaining:currentRemaining(),timerStartedAt:null});else Object.assign(patch,{turn:1-state.turn,timerRemaining:60,timerStartedAt:firebase.database.ServerValue.TIMESTAMP});updateOnlineRoom(patch)}
+function onlineTimeout(){if(state.active)updateOnlineRoom({result:state.turn===0?'O':'X',active:false,winning:[],timerRemaining:0,timerStartedAt:null})}
+function openOnlineLobby(){openModal(`<h2>🌐 2台2人対戦</h2><p>ルームを作るか、相手から受け取った4文字のコードで参加します。</p><div class="grid"><button class="btn primary" id="makeRoom">部屋を作る</button><button class="btn" id="enterRoom">部屋に入る</button></div><div class="gamebar"><button class="btn small" id="onlineCancel">戻る</button></div>`);by('makeRoom',()=>{closeModal();createOnlineRoom()});by('enterRoom',()=>openModal(`<h2>ルームに入る</h2><label class="label">ルームコード</label><input class="field" id="joinCode" maxlength="4" placeholder="例：A7K3"><div class="gamebar"><button class="btn primary" id="joinGo">参加する</button><button class="btn" id="joinBack">戻る</button></div>`));by('joinGo',()=>{const c=document.getElementById('joinCode').value;closeModal();joinOnlineRoom(c)});by('joinBack',openOnlineLobby);by('onlineCancel',closeModal)}
+function onlinePage(p){const d=onlineLastSnapshot||{},own=state.onlineRole==='host'?d.hostName||'':d.guestName||'',other=state.onlineRole==='host'?d.guestName||'':d.hostName||'';p.innerHTML=`<section class="panel"><h2>🌐 オンライン対戦</h2><div class="notice"><b>ルームコード</b><div class="online-code" style="font-size:2.4rem;letter-spacing:.18em;text-align:center;font-weight:800;margin:.6rem 0">${esc(state.onlineRoom||'----')}</div><div style="text-align:center">この4文字を相手の端末に入力してもらってください。</div></div><div class="formgrid"><div><label class="label">あなたの名前</label><input class="field" id="onlineName" maxlength="20" value="${esc(own)}" placeholder="自分の名前を入力"><div class="muted">この名前はオンラインランキングに表示されます。</div></div><div><label class="label">相手</label><div class="field">${other?esc(other):'相手の参加を待っています…'}</div><div class="muted">${state.onlineConnected?'接続中':'未接続'}</div></div></div><div class="gamebar"><button class="btn primary" id="saveOnlineName">名前を登録</button><button class="btn" id="onlineSkin">駒を着せ替える</button>${state.onlineRole==='host'?'<button class="btn" id="startOnline">対局開始</button>':''}<button class="btn danger" id="leaveOnline">ルームを終了</button></div></section>`;by('saveOnlineName',()=>setOnlineOwnName(document.getElementById('onlineName').value.trim()));by('onlineSkin',()=>{state.previous='online';state.page='skins';render();save()});by('startOnline',startOnlineMatch);by('leaveOnline',()=>{if(confirm('このルームを終了しますか？')){window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom).remove().finally(()=>{cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.page='setup';render();save()})}})}
+function setPage(p){state.previous=state.page;state.page=p;render();save();syncClock()}
+function applyBackground(){const b=backgrounds.find(x=>x[0]===state.background)?.[0]||'mountain';document.getElementById('bg').className='bg-art bg-'+b}
+function render(){applyBackground();const p=document.getElementById('page');p.innerHTML='';if(state.page==='home')home(p);else if(state.page==='setup')setup(p);else if(state.page==='game')game(p);else if(state.page==='online')onlinePage(p);else if(state.page==='skins')skinsPage(p);else if(state.page==='backgrounds')backgroundPage(p);else if(state.page==='ranking')ranking(p);else if(state.page==='history')historyPage(p);else if(state.page==='achievements')achievements(p);else if(state.page==='rules')rules(p);updateTimerDisplay();if(state.result&&state.page==='home')state.result=null}
+function home(p){p.innerHTML=`<div class="home-grid"><section class="panel"><h1>MARUBATSU LINE</h1><p>落ち着いたデザインで遊べる、○×ラインゲーム。</p><div class="grid"><button class="btn primary" id="newGame">新しくやる</button><button class="btn" id="continueBtn">前回の対局を続ける</button></div><div class="formgrid"><div class="stat"><b>勝利</b><div>${state.wins}</div></div><div class="stat"><b>引き分け</b><div>${state.draws}</div></div><div class="stat"><b>敗北</b><div>${state.losses}</div></div></div></section><aside class="panel"><h2>メニュー</h2><div class="list"><button class="btn" id="skinBtn">駒の着せ替え</button><button class="btn" id="bgBtn">背景の着せ替え</button><button class="btn" id="rankBtn">ランキング</button><button class="btn" id="histBtn">対局履歴</button><button class="btn" id="achBtn">実績</button><button class="btn" id="ruleBtn">ルール・遊び方</button></div><div class="notice">現在の背景：${backgrounds.find(x=>x[0]===state.background)?.[1]||'山岳'} ／ 駒：${emojiMap[state.skin]||'🚆'} ${emojiThemes.find(x=>x[0]===state.skin)?.[2]||''}</div><button class="btn small" id="exportBtn">セーブデータを書き出す</button></aside></div>`;
+by('newGame',()=>setPage('setup'));by('continueBtn',()=>{if(state.active&&state.board?.length){setPage('game')}else if(state.result){showVictory();}else alert('続けられる対局データがありません。')});by('skinBtn',()=>setPage('skins'));by('bgBtn',()=>setPage('backgrounds'));by('rankBtn',()=>setPage('ranking'));by('histBtn',()=>setPage('history'));by('achBtn',()=>setPage('achievements'));by('ruleBtn',()=>setPage('rules'));by('exportBtn',exportSave)}
+function setup(p){p.innerHTML=`<section class="panel"><h2>新しい対局</h2><div class="formgrid"><div><label class="label">対戦方式</label><select class="field" id="mode"><option value="ai">1人でAIと対戦</option><option value="local">📱 端末のみ・2人対戦</option><option value="online">🌐 2台2人対戦</option></select></div><div><label class="label">盤面</label><select class="field" id="size">${[3,4,5,6,7].map(n=>`<option ${n===state.size?'selected':''}>${n}</option>`).join('')}</select></div><div><label class="label">勝利ライン</label><select class="field" id="win"></select></div><div id="p1wrap"><label class="label">プレイヤー1</label><input class="field" id="p1" maxlength="20" placeholder="プレイヤーの名前を入力"><div class="muted">この名前はランキングに表示されます。</div></div><div id="p2wrap"><label class="label">プレイヤー2</label><input class="field" id="p2" maxlength="20" placeholder="プレイヤー2の名前を入力"><div class="muted">この名前はランキングに表示されます。</div></div></div><div id="onlineInfo" class="notice" style="display:none">🌐 ルームを作成／参加してから、それぞれ自分の名前を登録します。</div><div class="gamebar"><button class="btn primary" id="start">対局開始</button><button class="btn" id="cancel">戻る</button></div></section>`;const mode=document.getElementById('mode'),size=document.getElementById('size'),win=document.getElementById('win'),p1w=document.getElementById('p1wrap'),p2w=document.getElementById('p2wrap'),oi=document.getElementById('onlineInfo');function opts(){const n=+size.value,a=n<=5?[3,4,5].filter(v=>v<=n):[5,6,7].filter(v=>v<=n);win.innerHTML=a.map(v=>`<option ${v===Math.min(state.win,n)?'selected':''}>${v}</option>`).join('')}opts();size.onchange=opts;mode.onchange=()=>{p1w.style.display=mode.value==='online'?'none':'block';p2w.style.display=mode.value==='local'?'block':'none';oi.style.display=mode.value==='online'?'block':'none'};mode.onchange();by('cancel',()=>setPage('home'));by('start',()=>{if(mode.value==='online'){state.size=+size.value;state.win=+win.value;save();openOnlineLobby();return}const n1=document.getElementById('p1').value.trim()||'プレイヤー1',n2=mode.value==='local'?(document.getElementById('p2').value.trim()||'プレイヤー2'):'AI',e1=validatePlayerName(n1),e2=mode.value==='local'?validatePlayerName(n2):'';if(e1){alert(e1);return}if(e2){alert(e2);return}cleanupOnline();clearInterval(timer);state.mode=mode.value;state.size=+size.value;state.win=+win.value;state.p1=n1;state.p2=n2;state.turn=state.starter;state.board=Array(state.size*state.size).fill('');state.active=true;state.result=null;winning=[];state.timerRemaining=60;state.timerStartedAt=Date.now();setPage('game');syncClock();if(state.mode==='ai'&&state.turn===1)setTimeout(aiMove,350)})}
+function game(p){const n=state.size;const cells=state.board.map((v,i)=>`<button class="cell ${winning.includes(i)?'win':''}" data-i="${i}" ${v?'disabled':''}>${v?piece(v):''}</button>`).join('');p.innerHTML=`<section class="panel"><div class="gamebar"><span class="tag">${state.mode==='ai'?'1人対AI':state.mode==='online'?'🌐 2台2人対戦':'📱 端末のみ'}</span><span class="tag">${n}×${n}</span><span class="tag">${state.win}つ揃え</span></div><div class="turn">${state.turn===0?(state.p1||'プレイヤー1'):(state.p2||'AI')} の番</div><div class="timer" id="timer">01:00</div><div class="notice" style="text-align:center">1手につき60秒。時間切れになると相手の勝利です。</div><div class="boardwrap"><div class="board" style="grid-template-columns:repeat(${n},1fr);grid-template-rows:repeat(${n},1fr)">${cells}</div></div><div class="gamebar"><button class="btn" id="skin">駒を着せ替える</button><button class="btn" id="bg">背景を着せ替える</button><button class="btn" id="quick">簡単設定</button><button class="btn" id="exit">対局を終了</button></div></section>`;p.querySelectorAll('.cell').forEach(c=>c.addEventListener('click',()=>state.mode==='online'?onlineMove(+c.dataset.i):move(+c.dataset.i)));by('skin',()=>setPage('skins'));by('bg',()=>setPage('backgrounds'));by('quick',openQuick);by('exit',confirmExit);syncClock()}
+function piece(v){const id=v==='X'?(state.skin||'classicO'):(state.skin2||'classicX');return `<span class="piece ${v==='X'?'p1':'p2'}" data-illustration="${id}" aria-label="${emojiMap[id]||''}">${emojiMap[id]||'❌'}</span>`}
+function move(i){if(!state.active||state.board[i]||winning.length)return;if(state.mode==='ai'&&state.turn===1)return;state.board[i]=state.turn===0?'X':'O';const result=checkWin(state.board,state.board[i]);if(result){winning=result;finish(state.board[i]);return}if(state.board.every(Boolean)){finish('draw');return}state.turn=1-state.turn;state.timerRemaining=60;state.timerStartedAt=Date.now();render();save();if(state.mode==='ai'&&state.turn===1)setTimeout(aiMove,300)}
+function checkWin(b,v){const n=state.size,k=state.win;for(let r=0;r<n;r++)for(let c=0;c<n;c++)for(const [dr,dc] of [[0,1],[1,0],[1,1],[1,-1]]){const arr=[];for(let q=0;q<k;q++){const rr=r+dr*q,cc=c+dc*q;if(rr<0||rr>=n||cc<0||cc>=n)break;const idx=rr*n+cc;if(b[idx]!==v)break;arr.push(idx)}if(arr.length===k)return arr}return null}
+function aiMove(){if(!state.active||state.page!=='game'||state.turn!==1||winning.length)return;const b=state.board,n=state.size;let best=-1;for(let i=0;i<b.length;i++)if(!b[i]){b[i]='O';if(checkWin(b,'O')){best=i;b[i]='';break}b[i]=''}if(best<0)for(let i=0;i<b.length;i++)if(!b[i]){b[i]='X';if(checkWin(b,'X')){best=i;b[i]='';break}b[i]=''}if(best<0){const free=b.map((v,i)=>v?null:i).filter(i=>i!==null);best=free[Math.floor(Math.random()*free.length)]}if(best==null)return;b[best]='O';const result=checkWin(b,'O');if(result){winning=result;finish('O');return}if(b.every(Boolean)){finish('draw');return}state.turn=0;state.timerRemaining=60;state.timerStartedAt=Date.now();render();save()}
+function currentRemaining(){if(!state.active)return state.timerRemaining??60;if(!state.timerStartedAt)return state.timerRemaining??60;return Math.max(0,(state.timerRemaining??60)-Math.floor((Date.now()-state.timerStartedAt)/1000))}
+function updateTimerDisplay(){const el=document.getElementById('timer');if(el){const sec=currentRemaining();el.textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;el.style.color=sec<=10?'#a33':''}}
+function syncClock(){clearInterval(timer);if(!state.active)return;timer=setInterval(()=>{if(state.mode==='online'&&!state.onlineConnected){updateTimerDisplay();return}const rem=currentRemaining();if(rem<=0){state.timerRemaining=0;state.timerStartedAt=null;if(state.mode==='online'){onlineTimeout();return}const loser=state.turn;finish(loser===0?'O':'X');return}updateTimerDisplay();if(rem%5===0)save()},250)}
+function finish(v){if(!state.active)return;state.timerRemaining=currentRemaining();clearInterval(timer);state.timerStartedAt=null;state.active=false;state.result=v;state.winning=winning;const winner=v==='X'?state.p1:v==='O'?state.p2:null;if(state.mode==='online'){if(state.onlineRole==='host')pushOnlineResult(v)}else if(v==='draw')state.draws++;else if(v==='X'&&state.mode==='ai')state.wins++;else if(v==='O'&&state.mode==='ai')state.losses++;else if(v==='X')state.wins++;else state.losses++;state.history.unshift({date:new Date().toLocaleString('ja-JP'),result:v==='draw'?'引き分け':winner||'勝利',size:state.size,win:state.win});state.history=state.history.slice(0,100);save();setTimeout(showVictory,50)}
+function showVictory(){if(!state.result)return;const v=state.result,winner=v==='X'?state.p1:v==='O'?state.p2:null;const mark=v==='X'?(emojiMap[state.skin]||'🚆'):v==='O'?(emojiMap[state.skin2]||'🚉'):'—';document.getElementById('modalInner').innerHTML=`<div class="confetti">${Array.from({length:18},(_,i)=>`<i style="left:${(i*17)%100}%;animation-delay:${(i%7)*.12}s"></i>`).join('')}</div><div class="victory-mark">${mark}</div><h2 style="text-align:center">${v==='draw'?'引き分け':(winner||'勝利')}！</h2><p style="text-align:center">${v==='draw'?'すべてのマスが埋まりました。':'勝利ラインが揃いました。'}</p><div class="grid"><button class="btn primary" id="again">もう一度対局</button><button class="btn" id="stay">駒を着せ替える</button><button class="btn" id="vrank">ランキングを見る</button><button class="btn" id="vhistory">対局履歴</button><button class="btn danger" id="end">対局を終了</button></div>`;document.getElementById('modal').classList.add('show');by('again',startRematch);by('stay',()=>{closeModal();state.previous='victory';state.page='skins';render();save()});by('vrank',()=>{closeModal();state.previous='victory';state.page='ranking';render();save()});by('vhistory',()=>{closeModal();state.previous='victory';state.page='history';render();save()});by('end',()=>{closeModal();if(state.mode==='online'){cleanupOnline();state.onlineRoom=null;state.onlineRole=null}state.result=null;state.active=false;state.board=[];state.page='home';state.previous='home';render();save()})}
+function startRematch(){closeModal();if(state.mode==='online'){if(state.onlineRole!=='host'){alert('ルーム作成側が次の対局を開始します。');return}state.starter=1-state.starter;state._onlineResultShown=false;updateOnlineRoom({board:Array(state.size*state.size).fill(''),starter:state.starter,turn:state.starter,active:true,result:null,winning:[],timerRemaining:60,timerStartedAt:firebase.database.ServerValue.TIMESTAMP});return}state.board=Array(state.size*state.size).fill('');state.starter=1-state.starter;state.turn=state.starter;state.active=true;state.result=null;winning=[];state.winning=[];state.timerRemaining=60;state.timerStartedAt=Date.now();render();save();syncClock();if(state.mode==='ai'&&state.turn===1)setTimeout(aiMove,350)}
+function returnAfterResult(){if(state.result){showVictory();return}setPage('home')}
+function skinsPage(p){
+ const groups=[['すべて',emojiThemes],['クラシック',emojiThemes.filter(x=>x[0].startsWith('classic'))],['鉄道',emojiThemes.filter(x=>['train','shinkansen','station','rail'].includes(x[0]))],['自然',emojiThemes.filter(x=>['maple','cherry','bamboo','flower','leaf','mountain','forest','ocean','sun','moon','star','snow'].includes(x[0]))],['動物',emojiThemes.filter(x=>['cat','dog','fox','bear','bird','deer','wolf','panda','penguin','koala','lion','tiger','horse','whale','dolphin'].includes(x[0]))],['食べ物',emojiThemes.filter(x=>['apple','peach','orange','grape','coffee','cake','bread','ramen','sushi','rice','burger','pizza','donut','icecream','tea','melon','watermelon'].includes(x[0]))],['乗り物',emojiThemes.filter(x=>['airplane','ship','car','bicycle','bus','tram','metro','taxi','motorcycle','helicopter','sailboat','ferry','anchor'].includes(x[0]))],['その他',emojiThemes.filter(x=>['music','game','ball','trophy','camera','book','school','house','rocket','planet','fire','crystal','umbrella','rainbow','snowman','lantern'].includes(x[0]))]];
+ const activePlayer=state.skinTarget||1;
+ p.innerHTML=`<section class="panel skin-panel"><div class="skin-head"><div><h2>駒の着せ替え</h2><p>使いたいテーマを押すだけで変更できます。⭕️❌から好きなテーマへ着せ替えできます。</p></div><button class="btn small" id="randomSkin">🎲 おまかせ</button></div>
+ <div class="skin-target"><button class="player-tab ${activePlayer===1?'active':''}" id="target1"><span>${emojiMap[state.skin]||'⭕️'}</span><b>プレイヤー1</b><small>現在：${emojiThemes.find(x=>x[0]===state.skin)?.[2]||''}</small></button><button class="player-tab ${activePlayer===2?'active':''}" id="target2"><span>${emojiMap[state.skin2]||'❌'}</span><b>プレイヤー2</b><small>現在：${emojiThemes.find(x=>x[0]===state.skin2)?.[2]||''}</small></button></div>
+ <div class="skin-cats" id="skinCats">${groups.map((g,i)=>`<button class="catbtn ${i===0?'active':''}" data-cat="${i}">${g[0]}</button>`).join('')}</div><div class="skin-grid" id="skinGrid"></div>
+ <div class="gamebar"><button class="btn primary" id="backSkin">${state.previous==='game'?'対局に戻る':state.previous==='victory'?'対局結果へ戻る':state.previous==='online'?'オンラインルームへ戻る':'ホームへ戻る'}</button></div></section>`;
+ function draw(groupIndex=0){const items=groups[groupIndex][1];document.getElementById('skinGrid').innerHTML=items.map(x=>`<button class="skin-card ${((activePlayer===1?state.skin:state.skin2)===x[0])?'active':''}" data-skin="${x[0]}"><div class="skin-preview emoji-preview"><span class="skin-symbol skin-${x[0]}">${x[1]}</span></div><b>${x[2]}</b><small>${x[1]}</small></button>`).join('');document.querySelectorAll('[data-skin]').forEach(e=>e.onclick=()=>{if(activePlayer===1)state.skin=e.dataset.skin;else state.skin2=e.dataset.skin;state.skinCustomized=true;state.skinTarget=activePlayer;save();render()})}
+ document.querySelectorAll('[data-cat]').forEach(e=>e.onclick=()=>{document.querySelectorAll('[data-cat]').forEach(x=>x.classList.remove('active'));e.classList.add('active');draw(+e.dataset.cat)});
+ by('target1',()=>{state.skinTarget=1;save();render()});by('target2',()=>{state.skinTarget=2;save();render()});by('randomSkin',()=>{const a=emojiThemes[Math.floor(Math.random()*emojiThemes.length)][0];const b=emojiThemes[Math.floor(Math.random()*emojiThemes.length)][0];state.skin=a;state.skin2=b;state.skinCustomized=true;state.skinTarget=activePlayer;save();render()});by('backSkin',()=>{if(state.previous==='victory'){showVictory()}else if(state.previous==='game'){setPage('game')}else setPage('home')});draw();
+}
+function backgroundPage(p){p.innerHTML=`<section class="panel"><h2>背景の着せ替え</h2><p>現在：<b>${backgrounds.find(x=>x[0]===state.background)?.[1]}</b></p><div class="bg-grid">${backgrounds.map(b=>`<button class="bg-card ${state.background===b[0]?'active':''}" data-b="${b[0]}"><div class="bg-art bg-${b[0]} bg-thumb"></div><div class="bg-name">${b[1]}</div></button>`).join('')}</div><div class="gamebar"><button class="btn primary" id="backBg">${state.previous==='game'?'対局に戻る':state.previous==='victory'?'対局結果へ戻る':'ホームへ戻る'}</button></div></section>`;p.querySelectorAll('[data-b]').forEach(e=>e.onclick=()=>{state.background=e.dataset.b;save();render()});by('backBg',()=>{if(state.previous==='victory')showVictory();else if(state.previous==='game')setPage('game');else setPage('home')})}
+function ranking(p){p.innerHTML=`<section class="panel"><h2>ランキング</h2><div class="grid"><div class="stat"><h3>🌐 オンラインランキング</h3><p>全プレイヤー共通。オンライン対戦の結果。</p><div id="onlineRank" class="list"><div class="notice">読み込み中…</div></div></div><div class="stat"><h3>📱 端末内ランキング</h3><p>この端末・ブラウザだけ。</p><div class="item"><b>${esc(state.p1||'プレイヤー1')}</b><span>${state.wins}勝 ${state.draws}分 ${state.losses}敗</span></div></div></div><div class="gamebar"><button class="btn primary" id="rback">${state.previous==='victory'?'対局結果へ戻る':'戻る'}</button><button class="btn" id="rhome">ホーム</button></div></section>`;const t=document.getElementById('onlineRank');if(!firebaseReady()){t.innerHTML='<div class="notice">Firebase未接続のためオンラインランキングを表示できません。</div>'}else window.MARUBATSU_DB.ref('onlineRankings').once('value').then(snap=>{const a=[];snap.forEach(c=>a.push(c.val()||{}));a.sort((x,y)=>Number(y.wins||0)-Number(x.wins||0));t.innerHTML=a.length?a.slice(0,50).map((d,i)=>`<div class="item"><span><b>${i+1}. ${esc(d.name)}</b><br><small>${d.wins||0}勝 ${d.draws||0}分 ${d.losses||0}敗</small></span><span class="tag">オンライン</span></div>`).join(''):'<div class="notice">まだオンライン対戦の記録がありません。</div>'}).catch(()=>t.innerHTML='<div class="notice">オンラインランキングを読み込めませんでした。</div>');by('rback',()=>{if(state.previous==='victory')showVictory();else setPage('home')});by('rhome',()=>setPage('home'))}
+function historyPage(p){p.innerHTML=`<section class="panel"><h2>対局履歴</h2><div class="list">${state.history.length?state.history.map(h=>`<div class="item"><span>${h.date}<br><small>${h.size}×${h.size} / ${h.win}つ</small></span><b>${h.result}</b></div>`).join(''):'<div class="notice">まだ対局履歴がありません。</div>'}</div><div class="gamebar"><button class="btn primary" id="hback">${state.previous==='victory'?'対局結果へ戻る':'戻る'}</button><button class="btn" id="hhome">ホーム</button></div></section>`;by('hback',()=>{if(state.previous==='victory')showVictory();else setPage('home')});by('hhome',()=>setPage('home'))}
+function achievements(p){const wins=state.wins;p.innerHTML=`<section class="panel"><h2>実績</h2><div class="list">${[['はじめの一歩','初めて対局する',wins>0],['勝利','1勝する',wins>=1],['10勝','10勝する',wins>=10],['50勝','50勝する',wins>=50],['七の世界','7×7で対局する',false],['長い一列','5つ以上のラインを完成させる',false],['イベント参加者','季節イベントに参加する',false]].map(a=>`<div class="item"><span><b>${a[0]}</b><br><small>${a[1]}</small></span><span class="tag">${a[2]?'達成':'未達成'}</span></div>`).join('')}</div><div class="gamebar"><button class="btn" id="aback">戻る</button><button class="btn primary" id="ahome">ホーム</button></div></section>`;by('aback',()=>setPage('home'));by('ahome',()=>setPage('home'))}
+function rules(p){p.innerHTML=`<section class="panel"><h2>ルール・遊び方</h2><div class="list"><div class="item"><span><b>勝利条件</b><br>設定した本数の駒を縦・横・斜めに連続して揃えます。</span></div><div class="item"><span><b>盤面</b><br>3×3から7×7まで選択できます。</span></div><div class="item"><span><b>制限時間</b><br><b>1人につき1手60秒</b>です。0秒になると時間切れで相手の勝利になります。</span></div><div class="item"><span><b>着せ替え</b><br>Apple絵文字のテーマを選択できます。</span></div></div><div class="gamebar"><button class="btn primary" id="ruleback">ホームへ戻る</button></div></section>`;by('ruleback',()=>setPage('home'))}
+function confirmExit(){openModal(`<h2>途中でゲームを終了しますか？</h2><p>終了すると現在の対局状態は破棄されます。</p><div class="gamebar"><button class="btn danger" id="yesExit">ゲームを終了</button><button class="btn" id="noExit">キャンセル</button></div>`);by('yesExit',()=>{closeModal();clearInterval(timer);if(state.mode==='online'){cleanupOnline();state.onlineRoom=null;state.onlineRole=null}state.board=[];state.active=false;state.result=null;state.page='home';state.previous='home';state.p1='';state.p2='';render();save()});by('noExit',closeModal)}
+function openQuick(){openModal(`<h2>簡単設定</h2><label class="label">音量</label><input id="vol" type="range" min="0" max="100" value="${state.sound}"><p>現在：${state.sound}%</p><div class="gamebar"><button class="btn primary" id="qclose">対局に戻る</button></div>`);document.getElementById('vol').oninput=e=>{state.sound=+e.target.value;save()};by('qclose',closeModal)}
+function openModal(html){document.getElementById('modalInner').innerHTML=html;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function by(id,fn){const e=document.getElementById(id);if(e)e.onclick=fn;return e}
+function exportSave(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='marubatsu-line-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+document.getElementById('homeBtn').onclick=()=>{if(state.page==='game')confirmExit();else if(state.page==='online'){cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.page='home';state.previous='home';render();save()}else{closeModal();state.page='home';state.previous='home';render();save()}};
+document.getElementById('backBtn').onclick=()=>{if(state.page==='game'){confirmExit();return}if(state.page==='victory')return;if(state.page==='home')return;closeModal();if(state.previous==='victory')showVictory();else setPage('home')};
+render();syncClock();
+</script>
+
+<script id="marubatsu-online-polish-v2">
+/* MARUBATSU LINE online polish: independent names/skins + mutual rematch */
+(function(){
+  const originalCreate=window.createOnlineRoom;
+  function roomBaseV2(code){
+    return {code,hostName:'',guestName:'',hostSkin:state.skin||'classicO',guestSkin:'',
+      board:Array(state.size*state.size).fill(''),size:state.size,win:state.win,turn:0,starter:0,
+      active:false,result:null,winning:[],timerRemaining:60,timerStartedAt:null,
+      hostOnline:false,guestOnline:false,rematchHost:false,rematchGuest:false,
+      createdAt:firebase.database.ServerValue.TIMESTAMP};
+  }
+  window.roomBase=roomBaseV2;
+  window.createOnlineRoom=function(){
+    if(!firebaseReady()){alert('Firebaseに接続できません。\\nFirebase設定またはネット接続を確認してください。');return}
+    const code=roomCode();
+    window.MARUBATSU_DB.ref('rooms/'+code).set(roomBaseV2(code)).then(()=>{
+      state.onlineRoom=code;state.onlineRole='host';state.mode='online';state.page='online';
+      state._onlineResultShown=false;state.skinTarget=1;save();render();onlineRoomListen();
+    }).catch(e=>{console.error(e);alert('部屋を作成できませんでした。\\n'+(e.message||e))});
+  };
+  window.onlineRoomListen=function(){
+    cleanupOnline(); if(!state.onlineRoom)return;
+    onlineRoomRef=window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom);
+    onlineRoomHandler=snap=>{
+      const d=snap.val();
+      if(!d){cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.page='setup';render();return}
+      onlineLastSnapshot=d;
+      state.size=Number(d.size||3);state.win=Number(d.win||3);
+      state.board=Array.isArray(d.board)?d.board:Object.values(d.board||{});
+      state.turn=Number(d.turn||0);state.starter=Number(d.starter||0);
+      state.p1=d.hostName||'';state.p2=d.guestName||'';
+      if(state.onlineRole==='host'){
+        state.skin=d.hostSkin||state.skin||'classicO';
+      }else{
+        state.skin2=d.guestSkin||state.skin2||'classicX';
+      }
+      state.active=!!d.active;state.result=d.result||null;
+      winning=Array.isArray(d.winning)?d.winning:[];
+      state.timerRemaining=Number(d.timerRemaining??60);state.timerStartedAt=d.timerStartedAt||null;
+      state.onlineConnected=state.onlineRole==='host'?!!d.guestOnline:!!d.hostOnline;
+      if(state.active&&state.page==='online')state.page='game';
+      if(state.page==='online'||state.page==='game')render();
+      if(d.result&&!state._onlineResultShown){state._onlineResultShown=true;setTimeout(showVictory,40)}
+      syncClock();
+    };
+    onlineRoomRef.on('value',onlineRoomHandler);
+    onlinePresenceRef=onlineRoomRef.child(state.onlineRole==='host'?'hostOnline':'guestOnline');
+    onlinePresenceRef.set(true);onlinePresenceRef.onDisconnect().set(false);
+  };
+  window.setOnlineOwnName=function(name){
+    const e=validatePlayerName(name);if(e){alert(e);return}
+    const k=state.onlineRole==='host'?'hostName':'guestName';
+    updateOnlineRoom({[k]:name}).then(()=>{if(state.onlineRole==='host')state.p1=name;else state.p2=name;save()});
+  };
+  window.setOnlineSkin=function(id){
+    if(!state.onlineRoom||!state.onlineRole)return;
+    const d=onlineLastSnapshot||{};
+    const other=state.onlineRole==='host'?(d.guestSkin||''):(d.hostSkin||'');
+    if(other===id){alert('相手が現在この着せ替えを使用しています。別の着せ替えを選んでください。');return}
+    const k=state.onlineRole==='host'?'hostSkin':'guestSkin';
+    updateOnlineRoom({[k]:id}).then(()=>{if(state.onlineRole==='host')state.skin=id;else state.skin2=id;state.skinCustomized=true;save();render()});
+  };
+  window.startOnlineMatch=function(){
+    if(state.onlineRole!=='host')return;
+    const d=onlineLastSnapshot||{};
+    if(!d.hostName||!d.guestName){alert('2人とも自分の名前を登録してください。');return}
+    if(!d.hostSkin||!d.guestSkin){alert('2人とも駒の着せ替えを設定してください。');return}
+    if(d.hostSkin===d.guestSkin){alert('2人の駒が同じです。別々の着せ替えを選んでください。');return}
+    state._onlineResultShown=false;
+    updateOnlineRoom({board:Array(state.size*state.size).fill(''),size:state.size,win:state.win,
+      turn:Number(d.starter||0),starter:Number(d.starter||0),active:true,result:null,winning:[],
+      rematchHost:false,rematchGuest:false,timerRemaining:60,timerStartedAt:firebase.database.ServerValue.TIMESTAMP});
+  };
+  window.startRematch=function(){
+    closeModal();
+    if(state.mode==='online'){
+      const key=state.onlineRole==='host'?'rematchHost':'rematchGuest';
+      updateOnlineRoom({[key]:true}).then(()=>{render();save()});
+      return;
+    }
+    state.board=Array(state.size*state.size).fill('');state.starter=1-state.starter;state.turn=state.starter;
+    state.active=true;state.result=null;winning=[];state.winning=[];state.timerRemaining=60;state.timerStartedAt=Date.now();
+    render();save();syncClock();if(state.mode==='ai'&&state.turn===1)setTimeout(aiMove,350);
+  };
+  window.skinsPage=function(p){
+    const groups=[
+      ['すべて',emojiThemes],['クラシック',emojiThemes.filter(x=>x[0].startsWith('classic'))],
+      ['鉄道',emojiThemes.filter(x=>['train','shinkansen','station','rail'].includes(x[0]))],
+      ['自然',emojiThemes.filter(x=>['maple','cherry','bamboo','flower','leaf','mountain','forest','ocean','sun','moon','star','snow'].includes(x[0]))],
+      ['動物',emojiThemes.filter(x=>['cat','dog','fox','bear','bird','deer','wolf','panda','penguin','koala','lion','tiger','horse','whale','dolphin'].includes(x[0]))],
+      ['食べ物',emojiThemes.filter(x=>['apple','peach','orange','grape','coffee','cake','bread','ramen','sushi','rice','burger','pizza','donut','icecream','tea','melon','watermelon'].includes(x[0]))],
+      ['乗り物',emojiThemes.filter(x=>['airplane','ship','car','bicycle','bus','tram','metro','taxi','motorcycle','helicopter','sailboat','ferry','anchor'].includes(x[0]))],
+      ['その他',emojiThemes.filter(x=>!['classicO','classicX','train','shinkansen','station','rail','maple','cherry','bamboo','flower','leaf','mountain','forest','ocean','sun','moon','star','snow','cat','dog','fox','bear','bird','apple','peach','orange','grape','coffee','cake','bread','airplane','ship','car','bicycle'].includes(x[0]))]
+    ];
+    const online=state.mode==='online'&&!!state.onlineRoom;
+    const activePlayer=online?(state.onlineRole==='host'?1:2):(state.skinTarget||1);
+    const own=activePlayer===1?state.skin:state.skin2;
+    const other=online?(onlineLastSnapshot?(activePlayer===1?onlineLastSnapshot.guestSkin:onlineLastSnapshot.hostSkin):''):(activePlayer===1?state.skin2:state.skin);
+    p.innerHTML=`<section class="panel skin-panel">
+      <div class="skin-head"><div><h2>駒の着せ替え</h2><p>${online?'あなた専用の着せ替えです。相手と同じ駒は選べません。':'プレイヤーごとに好きな駒へ着せ替えできます。'}</p></div><button class="btn small" id="randomSkin">🎲 おまかせ</button></div>
+      ${online?`<div class="notice"><b>あなた：</b>${esc(activePlayer===1?(state.p1||'プレイヤー1'):(state.p2||'プレイヤー2'))}　／　<b>相手：</b>${esc(activePlayer===1?(state.p2||'待機中'):(state.p1||'待機中'))}</div>`:
+      `<div class="skin-target"><button class="player-tab ${activePlayer===1?'active':''}" id="target1"><span>${emojiMap[state.skin]||'⭕️'}</span><b>プレイヤー1</b></button><button class="player-tab ${activePlayer===2?'active':''}" id="target2"><span>${emojiMap[state.skin2]||'❌'}</span><b>プレイヤー2</b></button></div>`}
+      <div class="skin-cats" id="skinCats">${groups.map((g,i)=>`<button class="catbtn ${i===0?'active':''}" data-cat="${i}">${g[0]}</button>`).join('')}</div>
+      <div class="skin-grid" id="skinGrid"></div>
+      <div class="gamebar"><button class="btn primary" id="backSkin">${state.previous==='game'?'対局に戻る':state.previous==='victory'?'対局結果へ戻る':state.previous==='online'?'オンラインルームへ戻る':'ホームへ戻る'}</button></div>
+    </section>`;
+    function draw(groupIndex=0){
+      const items=groups[groupIndex][1];
+      document.getElementById('skinGrid').innerHTML=items.map(x=>{
+        const blocked=online&&other===x[0];
+        return `<button class="skin-card ${own===x[0]?'active':''}" data-skin="${x[0]}" ${blocked?'disabled':''} style="${blocked?'opacity:.35;cursor:not-allowed':''}"><div class="skin-preview emoji-preview"><span class="skin-symbol skin-${x[0]}">${x[1]}</span></div><b>${x[2]}</b><small>${blocked?'相手が使用中':x[1]}</small></button>`;
+      }).join('');
+      document.querySelectorAll('[data-skin]').forEach(e=>e.onclick=()=>{
+        const id=e.dataset.skin;
+        if(online)setOnlineSkin(id);else{if(activePlayer===1)state.skin=id;else state.skin2=id;state.skinCustomized=true;state.skinTarget=activePlayer;save();render()}
+      });
+    }
+    document.querySelectorAll('[data-cat]').forEach(e=>e.onclick=()=>{document.querySelectorAll('[data-cat]').forEach(x=>x.classList.remove('active'));e.classList.add('active');draw(+e.dataset.cat)});
+    if(!online){by('target1',()=>{state.skinTarget=1;save();render()});by('target2',()=>{state.skinTarget=2;save();render()})}
+    by('randomSkin',()=>{
+      const pool=emojiThemes.filter(x=>x[0]!==other);if(!pool.length)return;
+      const id=pool[Math.floor(Math.random()*pool.length)][0];if(online)setOnlineSkin(id);else{if(activePlayer===1)state.skin=id;else state.skin2=id;state.skinCustomized=true;save();render()}
+    });
+    by('backSkin',()=>{if(state.previous==='victory')showVictory();else if(state.previous==='game')setPage('game');else if(state.previous==='online'){state.page='online';render();save()}else setPage('home')});draw();
+  };
+  /* Online victory screen: both players must press the rematch button. */
+  const baseShowVictory=window.showVictory;
+  window.showVictory=function(){
+    if(state.mode!=='online'){return baseShowVictory()}
+    if(!state.result)return;
+    const d=onlineLastSnapshot||{};
+    const hostReady=!!d.rematchHost,guestReady=!!d.rematchGuest;
+    const meReady=state.onlineRole==='host'?hostReady:guestReady;
+    const otherReady=state.onlineRole==='host'?guestReady:hostReady;
+    const v=state.result;
+    const winner=v==='X'?state.p1:v==='O'?state.p2:null;
+    const mark=v==='X'?(emojiMap[state.skin]||'⭕️'):v==='O'?(emojiMap[state.skin2]||'❌'):'—';
+    document.getElementById('modalInner').innerHTML=`<div class="victory-mark">${mark}</div><h2 style="text-align:center">${v==='draw'?'引き分け':(winner||'勝利')}！</h2><p style="text-align:center">${v==='draw'?'すべてのマスが埋まりました。':'勝利ラインが揃いました。'}</p>
+      <div class="notice" style="text-align:center">${meReady&&otherReady?'2人とも準備完了。次のゲームを開始します。':meReady?'相手の「次のゲームへ」を待っています…':'2人とも「次のゲームへ」を押すと開始します。'}</div>
+      <div class="grid"><button class="btn primary" id="again" ${meReady?'disabled':''}>${meReady?'準備完了 ✓':'次のゲームへ'}</button><button class="btn" id="stay">駒を着せ替える</button><button class="btn" id="vrank">ランキングを見る</button><button class="btn" id="vhistory">対局履歴</button><button class="btn danger" id="end">対局を終了</button></div>`;
+    document.getElementById('modal').classList.add('show');
+    by('again',startRematch);by('stay',()=>{closeModal();state.previous='victory';state.page='skins';render();save()});
+    by('vrank',()=>{closeModal();state.previous='victory';state.page='ranking';render();save()});
+    by('vhistory',()=>{closeModal();state.previous='victory';state.page='history';render();save()});
+    by('end',()=>{closeModal();cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.result=null;state.active=false;state.board=[];state.page='home';state.previous='home';render();save()});
+  };
+  /* After both rematch flags are set, host starts the next game and swaps starter. */
+  const oldListener=window.onlineRoomListen;
+  window.onlineRoomListen=function(){
+    cleanupOnline();if(!state.onlineRoom)return;
+    onlineRoomRef=window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom);
+    onlineRoomHandler=snap=>{
+      const d=snap.val();if(!d){cleanupOnline();state.onlineRoom=null;state.onlineRole=null;state.page='setup';render();return}
+      onlineLastSnapshot=d;state.size=Number(d.size||3);state.win=Number(d.win||3);state.board=Array.isArray(d.board)?d.board:Object.values(d.board||{});
+      state.turn=Number(d.turn||0);state.starter=Number(d.starter||0);state.p1=d.hostName||'';state.p2=d.guestName||'';
+      state.skin=d.hostSkin||state.skin||'classicO';state.skin2=d.guestSkin||state.skin2||'classicX';state.active=!!d.active;state.result=d.result||null;winning=Array.isArray(d.winning)?d.winning:[];
+      state.timerRemaining=Number(d.timerRemaining??60);state.timerStartedAt=d.timerStartedAt||null;state.onlineConnected=state.onlineRole==='host'?!!d.guestOnline:!!d.hostOnline;
+      if(state.active&&state.page==='online')state.page='game';if(state.page==='online'||state.page==='game')render();
+      const bothReady=!!d.rematchHost&&!!d.rematchGuest;
+      if(bothReady&&state.onlineRole==='host'&&!d.active&&d.result){
+        const nextStarter=1-Number(d.starter||0);
+        window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom).update({board:Array(state.size*state.size).fill(''),starter:nextStarter,turn:nextStarter,active:true,result:null,winning:[],rematchHost:false,rematchGuest:false,timerRemaining:60,timerStartedAt:firebase.database.ServerValue.TIMESTAMP});
+        return;
+      }
+      if(d.result&&!state._onlineResultShown){state._onlineResultShown=true;setTimeout(showVictory,40)}
+      syncClock();
+    };
+    onlineRoomRef.on('value',onlineRoomHandler);onlinePresenceRef=onlineRoomRef.child(state.onlineRole==='host'?'hostOnline':'guestOnline');onlinePresenceRef.set(true);onlinePresenceRef.onDisconnect().set(false);
+  };
+})();
+</script>
+<script id="illustration-piece-system">
+window.MARUBATSU_ILLUSTRATIONS = window.emojiMap || {};
+window.applyIllustrationPieces=function(root=document){root.querySelectorAll?.('.piece').forEach(el=>{const id=el.dataset.illustration; if(id && window.MARUBATSU_ILLUSTRATIONS[id]) el.textContent=window.MARUBATSU_ILLUSTRATIONS[id];});};
+</script>
+
+
+
+
+<script id="marubatsu-online-presence-replacement">
+(function(){
+  'use strict';
+
+  let lastOpponentOnline=null;
+  let opponentHasBeenOnline=false;
+  let presenceBusy=false;
+  let noticeElement=null;
+  let noticeTimer=null;
+  let lastPausedState=null;
+
+  function isOnlineGame(){
+    return !!(window.state && state.mode==='online' && state.onlineRoom && window.MARUBATSU_DB);
+  }
+
+  function getOpponentOnline(){
+    if(!isOnlineGame()) return null;
+    return !!state.onlineConnected;
+  }
+
+  function hideNotice(){
+    if(!noticeElement) return;
+    noticeElement.style.opacity='0';
+    noticeElement.style.transform='translateX(-50%) translateY(-8px)';
+  }
+
+  function showNotice(message,type,persistent){
+    if(!noticeElement){
+      noticeElement=document.createElement('div');
+      noticeElement.id='marubatsu-online-presence';
+      noticeElement.style.cssText=[
+        'position:fixed','left:50%','top:88px','transform:translateX(-50%) translateY(-8px)',
+        'z-index:99999','min-width:250px','max-width:90vw','padding:13px 20px','border-radius:15px',
+        'background:rgba(24,32,38,.96)','color:#fff','text-align:center','font-weight:800','font-size:15px',
+        'box-shadow:0 10px 35px rgba(0,0,0,.28)','backdrop-filter:blur(10px)','opacity:0',
+        'transition:opacity .2s ease,transform .2s ease','pointer-events:none'
+      ].join(';');
+      document.body.appendChild(noticeElement);
+    }
+
+    noticeElement.textContent=message;
+    noticeElement.style.border=type==='away'
+      ? '1px solid rgba(255,205,110,.55)'
+      : '1px solid rgba(120,220,155,.55)';
+
+    clearTimeout(noticeTimer);
+    requestAnimationFrame(function(){
+      noticeElement.style.opacity='1';
+      noticeElement.style.transform='translateX(-50%) translateY(0)';
+    });
+
+    if(!persistent){
+      noticeTimer=setTimeout(hideNotice,3000);
+    }
+  }
+
+  function pauseSharedTimer(){
+    if(presenceBusy || !isOnlineGame() || !state.active || !onlineLastSnapshot) return;
+    presenceBusy=true;
+
+    const ref=window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom);
+    ref.transaction(function(room){
+      if(!room || !room.active || room.presencePaused) return room;
+
+      let remaining=Number(room.timerRemaining??60);
+      if(room.timerStartedAt){
+        const startedAt=Number(room.timerStartedAt);
+        if(Number.isFinite(startedAt)){
+          remaining=Math.max(0,remaining-Math.floor((Date.now()-startedAt)/1000));
+        }
+      }
+
+      room.timerRemaining=remaining;
+      room.timerStartedAt=null;
+      room.presencePaused=true;
+      room.presencePausedAt=firebase.database.ServerValue.TIMESTAMP;
+      return room;
+    }).finally(function(){
+      presenceBusy=false;
+    });
+  }
+
+  function resumeSharedTimer(){
+    if(presenceBusy || !isOnlineGame() || !state.active || !onlineLastSnapshot) return;
+    presenceBusy=true;
+
+    const ref=window.MARUBATSU_DB.ref('rooms/'+state.onlineRoom);
+    ref.transaction(function(room){
+      if(!room || !room.presencePaused) return room;
+
+      if(!room.active){
+        room.presencePaused=false;
+        return room;
+      }
+
+      if(Number(room.timerRemaining??0)<=0){
+        room.presencePaused=false;
+        return room;
+      }
+
+      room.timerStartedAt=firebase.database.ServerValue.TIMESTAMP;
+      room.presencePaused=false;
+      room.presenceResumedAt=firebase.database.ServerValue.TIMESTAMP;
+      return room;
+    }).finally(function(){
+      presenceBusy=false;
+    });
+  }
+
+  function checkPresence(){
+    if(!isOnlineGame()){
+      lastOpponentOnline=null;
+      opponentHasBeenOnline=false;
+      lastPausedState=null;
+      hideNotice();
+      return;
+    }
+
+    const online=getOpponentOnline();
+    if(online===null) return;
+
+    if(lastOpponentOnline===null){
+      lastOpponentOnline=online;
+      if(online) opponentHasBeenOnline=true;
+      return;
+    }
+
+    if(lastOpponentOnline===true && online===false && opponentHasBeenOnline){
+      showNotice('💤 相手が離席中です','away',true);
+      pauseSharedTimer();
+    }
+
+    if(lastOpponentOnline===false && online===true && opponentHasBeenOnline){
+      showNotice('✓ 相手が戻ってきました','back',false);
+      resumeSharedTimer();
+    }
+
+    if(online) opponentHasBeenOnline=true;
+    lastOpponentOnline=online;
+  }
+
+  function syncPresenceTimerState(){
+    if(!window.state || state.mode!=='online' || !onlineLastSnapshot){
+      lastPausedState=null;
+      return;
+    }
+
+    const paused=!!onlineLastSnapshot.presencePaused;
+    if(paused!==lastPausedState){
+      lastPausedState=paused;
+      if(paused) state.timerStartedAt=null;
+      if(typeof syncClock==='function') syncClock();
+      if(typeof updateTimerDisplay==='function') updateTimerDisplay();
+    }
+  }
+
+  setInterval(function(){
+    try{
+      syncPresenceTimerState();
+      checkPresence();
+    }catch(e){
+      console.error('MARUBATSU LINE presence error:',e);
+    }
+  },300);
+
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){
+      setTimeout(function(){
+        try{
+          syncPresenceTimerState();
+          checkPresence();
+        }catch(e){
+          console.error(e);
+        }
+      },400);
+    }
+  });
+})();
+</script>
+
+<div class="autosave-note">この端末・ブラウザに自動保存されます。対局中の盤面と制限時間も自動保存されます。</div></body>
+</html>
